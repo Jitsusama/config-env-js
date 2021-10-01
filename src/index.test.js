@@ -3,7 +3,7 @@ const config = require("./index.js");
 test.each([
   ["PASSWORD", undefined, "password"],
   ["USERNAME", "bob", undefined],
-  ["JWT_SECRET", "shh", "shh"],
+  ["JWT_SECRET", "shh", "doesn't matter"],
 ])("gets a string or provides a fallback value", (key, value, fallback) => {
   const environment = new config.Environment({ environment: { [key]: value } });
 
@@ -23,7 +23,7 @@ test("complains when string is missing without a fallback value", () => {
 test.each([
   ["REQUEST_TIMEOUT", undefined, 30_000],
   ["RESPONSE_TIMEOUT", "15000", undefined],
-  ["RETRY_COUNT", "2", 2],
+  ["RETRY_COUNT", "2", 3],
 ])("gets an integer or provides a fallback value", (key, value, fallback) => {
   const environment = new config.Environment({ environment: { [key]: value } });
 
@@ -51,7 +51,7 @@ test("complains when integer without a fallback is missing", () => {
 test.each([
   ["API_BASEURI", undefined, "http://api.host:1234/path"],
   ["UI_BASEURI", "https://1.2.3.4/path", undefined],
-  ["CORS_HOSTNAME", "http://my.host:9876", "http://my.host:9876"],
+  ["CORS_HOSTNAME", "http://my.host:9876", "https://a.host:2345"],
 ])("gets a URL or provides a fallback value", (key, value, fallback) => {
   const environment = new config.Environment({ environment: { [key]: value } });
 
@@ -82,7 +82,7 @@ test("complains when URL without a fallback is missing", () => {
 test.each([
   ["LISTENING_PORT", undefined, 8080],
   ["HTTPS_PORT", "8444", undefined],
-  ["HTTP_PORT", "8080", 8080],
+  ["HTTP_PORT", "8080", 8090],
 ])(
   "gets an unprivileged port or provides a fallback value",
   (key, value, fallback) => {
@@ -119,7 +119,7 @@ test.each([
   ["VERBOSITY", undefined, "trace"],
   ["LOGGING_LEVEL", "debug", "silent"],
   ["LOGS", "info", undefined],
-  ["LOGGING", "warn", "warn"],
+  ["LOGGING", "warn", "error"],
   ["LOUDNESS", undefined, "error"],
   ["LEVEL", "fatal", undefined],
   ["LOG_LEVEL", "silent", "trace"],
