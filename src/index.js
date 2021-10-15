@@ -87,7 +87,7 @@ class Environment {
    * @returns {string}
    */
   getString(key, fallback) {
-    const value = this.environment[key];
+    const value = this.getOptionalString(key);
     if (!value?.trim()) {
       if (fallback) return fallback;
 
@@ -106,7 +106,6 @@ class Environment {
    * @param {string} key - environment variable name
    * @return {string}
    */
-
   getOptionalString(key) {
     return this.environment[key];
   }
@@ -119,7 +118,7 @@ class Environment {
    * @returns {boolean}
    */
   getBoolean(key, fallback) {
-    const value = this.environment[key];
+    const value = this.getOptionalString(key);
     if (value === undefined) {
       if (fallback !== undefined) return fallback;
       this.log.fatal(
