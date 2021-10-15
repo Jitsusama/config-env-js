@@ -154,3 +154,41 @@ test("complains when logging level without a fallback is missing", () => {
 
   expect(logic).toThrow(config.EnvironmentError);
 });
+
+test.each([
+  ["UNDER_TEST", undefined, false, false],
+  ["IS_SUN_HOT", "true", false, true],
+  ["IS_EARTH_FLAT", "false", true, false],
+  ["AM_I_A_ROBOT", "TRUE", undefined, true],
+  ["ARE_YOU_HAPPY", "False", undefined, false],
+])(
+  "gets boolean or provides a fallback value",
+  (key, value, fallback, resultValue) => {
+    const environment = new config.Environment({
+      environment: { [key]: value },
+    });
+
+    const result = environment.getBoolean(key, fallback);
+
+    expect(result).toEqual(resultValue);
+  }
+);
+
+test.each(["not_true", "1"])(
+  "complains when boolean value is invalid",
+  (value) => {
+    const environment = new config.Environment({ environment: { key: value } });
+
+    const logic = () => environment.getBoolean("key", true);
+
+    expect(logic).toThrow(config.EnvironmentError);
+  }
+);
+
+test("complains when boolean without a fallback is missing", () => {
+  const environment = new config.Environment({ environment: {} });
+
+  const logic = () => environment.getBoolean("key");
+
+  expect(logic).toThrow(config.EnvironmentError);
+});
