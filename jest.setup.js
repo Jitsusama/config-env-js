@@ -1,1 +1,1 @@
-require("jest-extended");
+expect.extend(/** @type any */ require("jest-extended"));

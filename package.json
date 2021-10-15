@@ -1,7 +1,7 @@
 {
   "name": "@jitsusama/config-env-js",
   "description": "A simple system environment configuration library that meets a narrow set of needs.",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,18 +23,18 @@
     "@jitsusama/logging-js": "^1.0.0-rc.10"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.15.7",
+    "@babel/eslint-parser": "^7.15.8",
     "@types/jest": "^27.0.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jest": "^24.5.2",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^25.2.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-unicorn": "^36.0.0",
-    "jest": "^27.2.4",
-    "jest-extended": "^0.11.5",
+    "eslint-plugin-unicorn": "^37.0.1",
+    "jest": "^27.2.5",
+    "jest-extended": "^1.0.0",
     "prettier": "^2.4.1"
   }
 }
