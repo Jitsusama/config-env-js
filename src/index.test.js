@@ -21,6 +21,20 @@ test("complains when string is missing without a fallback value", () => {
 });
 
 test.each([
+  ["OPTIONAL", undefined],
+  ["EMPTY", ""],
+  ["REAL_VAR", "someValue"],
+])("gets an optional string", (key, value) => {
+  const environment = new config.Environment({
+    environment: { [key]: value },
+  });
+
+  const result = environment.getOptionalString(key);
+
+  expect(result).toEqual(value);
+});
+
+test.each([
   ["REQUEST_TIMEOUT", undefined, 30_000],
   ["RESPONSE_TIMEOUT", "15000", undefined],
   ["RETRY_COUNT", "2", 3],
