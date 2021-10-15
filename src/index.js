@@ -101,6 +101,17 @@ class Environment {
   }
 
   /**
+   * Retrieve an optional string.
+   * @method
+   * @param {string} key - environment variable name
+   * @return {string}
+   */
+
+  getOptionalString(key) {
+    return this.environment[key];
+  }
+
+  /**
    * Retrieve a boolean.
    * @method
    * @param {string} key - environment variable name
