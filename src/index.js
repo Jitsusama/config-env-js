@@ -101,6 +101,32 @@ class Environment {
   }
 
   /**
+   * Retrieve a boolean.
+   * @method
+   * @param {string} key - environment variable name
+   * @param {boolean} [fallback] - fallback value
+   * @returns {boolean}
+   */
+  getBoolean(key, fallback) {
+    const value = this.environment[key];
+    if (value === undefined) {
+      if (fallback !== undefined) return fallback;
+      this.log.fatal(
+        { key, reason: "value is missing, empty or blank" },
+        "invalid configuration value"
+      );
+      throw new EnvironmentError();
+    }
+    if (value.toLowerCase() === "true") return true;
+    if (value.toLowerCase() === "false") return false;
+    this.log.fatal(
+      { key, reason: "invalid boolean value" },
+      "invalid configuration value"
+    );
+    throw new EnvironmentError();
+  }
+
+  /**
    * Retrieve an unprivileged TCP/UDP port number.
    * @method
    * @param {string} key - environment variable name
