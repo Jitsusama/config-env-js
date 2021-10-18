@@ -16,10 +16,8 @@ class Environment {
    */
   constructor(options) {
     const { environment = process.env, logs } = options || {};
-    const {
-      layer = "config-env",
-      level = environment.LOGGING_LEVEL || "silent",
-    } = logs || {};
+    const { layer = "config-env", level = environment.LOGGING_LEVEL } =
+      logs || {};
 
     this.environment = environment;
     this.log = logging.getLogger(layer, level);
