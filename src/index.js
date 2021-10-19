@@ -12,7 +12,7 @@ class Environment {
    * } [options.environment=process.env] - system environment
    * @param {Object} [options.logs] - logging configuration
    * @param {string} [options.logs.layer="config-env"] - layer to log as
-   * @param {string} [options.logs.level="silent"] - logging level
+   * @param {string} [options.logs.level] - logging level
    */
   constructor(options) {
     const { environment = process.env, logs } = options || {};
