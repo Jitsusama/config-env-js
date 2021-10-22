@@ -153,6 +153,24 @@ class Environment {
   }
 
   /**
+   * Retrieve a valid TCP/UDP port number.
+   * @method
+   * @param {string} key - environment variable name
+   * @param {number} [fallback] - fallback value
+   * @returns {number}
+   */
+  getPort(key, fallback) {
+    const value = this.getInteger(key, fallback);
+    if (value > 0 && value < 65_536) return value;
+
+    this.log.fatal(
+      { key, value, reason: "port number out of valid range" },
+      "invalid configuration value"
+    );
+    throw new EnvironmentError();
+  }
+
+  /**
    * Retrieve a URL.
    * @param {string} key - environment variable name
    * @param {string} [fallback] - fallback value

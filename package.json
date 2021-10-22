@@ -1,7 +1,7 @@
 {
   "name": "@jitsusama/config-env-js",
   "description": "A simple system environment configuration library that meets a narrow set of needs.",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0-rc.7",
   "license": "MIT",
   "repository": {
     "type": "git",

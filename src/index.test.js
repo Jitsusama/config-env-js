@@ -130,6 +130,41 @@ test("complains when unprivileged port without a fallback is missing", () => {
 });
 
 test.each([
+  ["LISTENING_PORT", undefined, 8080],
+  ["HTTPS_PORT", "8444", undefined],
+  ["HTTP_PORT", "8080", 8090],
+  ["LDAP_PORT", "389", 389],
+  ["LDAPS_PORT", "636", 636],
+])("gets a valid port or provides a fallback value", (key, value, fallback) => {
+  const environment = new config.Environment({
+    environment: { [key]: value },
+  });
+
+  const result = environment.getPort(key, fallback);
+
+  expect(result).toEqual(Number.parseInt(value) || fallback);
+});
+
+test.each(["string", "-1", "0", "65536"])(
+  "complains when port is invalid",
+  (value) => {
+    const environment = new config.Environment({ environment: { key: value } });
+
+    const logic = () => environment.getPort("key", 8080);
+
+    expect(logic).toThrow(config.EnvironmentError);
+  }
+);
+
+test("complains when port without a fallback is missing", () => {
+  const environment = new config.Environment({ environment: {} });
+
+  const logic = () => environment.getPort("key");
+
+  expect(logic).toThrow(config.EnvironmentError);
+});
+
+test.each([
   ["VERBOSITY", undefined, "trace"],
   ["LOGGING_LEVEL", "debug", "silent"],
   ["LOGS", "info", undefined],
